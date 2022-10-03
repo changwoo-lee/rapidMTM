@@ -15,17 +15,19 @@ Problems](https://arxiv.org/abs/2207.00689) by Hyunwoong Chang, Changwoo
 Lee, Zhao Tang Luo, Huiyan Sang, and Quan Zhou, which is accepted at
 [NeurIPS 2022](https://nips.cc/Conferences/2022).
 
-We study multiple-try Metropolis (MTM) algorithm, which is an extension
-of the Metropolis-Hastings (MH) algorithm by selecting the proposed
-state among multiple trials according to some weight function
-$w(y\,|\,x)$.
+We study multiple-try Metropolis (MTM) algorithm [Liu, Liang, and Wong
+(2000)](#references), which is an extension of the Metropolis-Hastings
+(MH) algorithm by selecting the proposed state among multiple trials
+according to some weight function $w(y|x)$. Below cartoon depicts how
+MTM algorithm choose a proposal state $y$ among $N$ trials (here $N=3$)
+from the current state $x_t$.
 
 ![mtm illustration](fig/mtm.PNG)
 
-We show that multiple-try Metropolis (MTM) algorithm can achieve a
-mixing time bound smaller than that of Metropolis-Hastings (MH)
-algorithm by a factor of the number of trials under a general setting
-applicable to high-dimensional model selection problems.
+We show that MTM algorithm can achieve a mixing time bound smaller than
+that of Metropolis-Hastings (MH) algorithm by a factor of the number of
+trials $N$ under a general setting applicable to high-dimensional model
+selection problems.
 
 ![Bayesian variable selection example](fig/fig3.PNG)
 
@@ -71,3 +73,9 @@ You can also embed plots, for example:
 
 In that case, don’t forget to commit and push the resulting figure
 files, so they display on GitHub and CRAN.
+
+### References
+
+Liu, J. S., Liang, F., & Wong, W. H. (2000). The multiple-try method and
+local optimization in Metropolis sampling. Journal of the American
+Statistical Association, 95(449), 121-134.
