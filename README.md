@@ -17,7 +17,7 @@ We study multiple-try Metropolis (MTM) algorithm [(Liu, Liang, and Wong,
 (MH) algorithm by selecting the proposed state among multiple trials
 according to some weight function $w(y|x)$. Below cartoon depicts how
 MTM algorithms choose the proposed state $y=y_2$ among $N=3$ trials
-($y_1,y_2,y_3$) from the current state $x_t$.
+$y_1,y_2,y_3$ from the current state $x_t$.
 
 ![mtm illustration](fig/mtm.PNG)
 
@@ -38,6 +38,14 @@ This is a basic example which shows you how to solve a common problem:
 ```
 
 ## Example 2: Stochastic block models
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+## basic example code
+```
+
+## Example 3:
 
 This is a basic example which shows you how to solve a common problem:
 

@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 This repository contains implementations of the paper [Rapidly Mixing Multiple-try Metropolis Algorithms for Model Selection Problems](https://arxiv.org/abs/2207.00689) by Hyunwoong Chang, Changwoo Lee, Zhao Tang Luo, Huiyan Sang, and Quan Zhou, which is accepted at [NeurIPS 2022](https://nips.cc/Conferences/2022). 
 
-We study multiple-try Metropolis (MTM) algorithm [(Liu, Liang, and Wong, 2000)](#references), which is an extension of the Metropolis-Hastings (MH) algorithm by selecting the proposed state among multiple trials according to some weight function $w(y|x)$. Below cartoon depicts how MTM algorithms choose the proposed state $y=y_2$ among $N=3$ trials ($y_1,y_2,y_3$) from the current state $x_t$.
+We study multiple-try Metropolis (MTM) algorithm [(Liu, Liang, and Wong, 2000)](#references), which is an extension of the Metropolis-Hastings (MH) algorithm by selecting the proposed state among multiple trials according to some weight function $w(y|x)$. Below cartoon depicts how MTM algorithms choose the proposed state $y=y_2$ among $N=3$ trials $y_1,y_2,y_3$ from the current state $x_t$.
 
 
 ![mtm illustration](fig/mtm.PNG)
@@ -50,6 +50,14 @@ This is a basic example which shows you how to solve a common problem:
 ```
 
 
+
+## Example 3: 
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example3}
+## basic example code
+```
 
 
 
