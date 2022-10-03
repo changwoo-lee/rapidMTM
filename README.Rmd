@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of rapidMTM is to ...
+The goal of rapidMTM is to ...ddd
 
 ## Installation
 

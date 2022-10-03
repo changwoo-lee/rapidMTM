@@ -9,3 +9,5 @@ Description: More about what it does (maybe more than one line)
 License: GPL (>= 3)
 Imports: Rcpp (>= 1.0.9)
 LinkingTo: Rcpp, RcppArmadillo
+URL: https://github.com/changwoo-lee/rapidMTM
+BugReports: https://github.com/changwoo-lee/rapidMTM/issues
