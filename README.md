@@ -16,8 +16,8 @@ We study multiple-try Metropolis (MTM) algorithm [(Liu, Liang, and Wong,
 2000)](#references), which is an extension of the Metropolis-Hastings
 (MH) algorithm by selecting the proposed state among multiple trials
 according to some weight function $w(y|x)$. Below cartoon depicts how
-MTM algorithms choose the proposed state $y$ among $N$ trials (here
-$N=3$) from the current state $x_t$.
+MTM algorithms choose the proposed state $y=y_2$ among $N=3$ trials
+($y_1,y_2,y_3$) from the current state $x_t$.
 
 ![mtm illustration](fig/mtm.PNG)
 
@@ -29,7 +29,15 @@ block models, and spatial clustering models.
 
 ![Bayesian variable selection example](fig/fig3.PNG)
 
-## Example
+## Example 1: Bayesian variable selection
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+## basic example code
+```
+
+## Example 2: Stochastic block models
 
 This is a basic example which shows you how to solve a common problem:
 
