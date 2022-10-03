@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of rapidMTM is to ...ddd
+rapidMTM test readme
 
 ## Installation
 
@@ -33,7 +33,6 @@ You can install the development version of rapidMTM like so:
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(rapidMTM)
 ## basic example code
 ```
 
