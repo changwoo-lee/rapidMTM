@@ -1,11 +1,9 @@
-Package: rapidMTM
-Type: Package
-Title: What the package does (short line)
+Title: Rapidly mixing multiple-try Metropolis for model selection problems 
 Version: 1.0
 Date: 2022-10-03
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
+Author: Hyunwoong Chang, Changwoo Lee, Zhao Tang Luo, Huiyan Sang, and Quan Zhou
+Maintainer: Changwoo Lee <c.lee@stat.tamu.edu>
+Description: This repository contains implementations of the paper "Rapidly Mixing Multiple-try Metropolis Algorithms for Model Selection Problems", which is accepted at NeurIPS 2022.
 License: GPL (>= 3)
 Imports: Rcpp (>= 1.0.9)
 LinkingTo: Rcpp, RcppArmadillo
