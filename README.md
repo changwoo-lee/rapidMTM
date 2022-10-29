@@ -10,7 +10,7 @@ This repository contains implementations of the paper
 
 [Rapidly Mixing Multiple-try Metropolis Algorithms for Model Selection
 Problems](https://arxiv.org/abs/2207.00689)  
-Hyunwoong Chang$*$, Changwoo J. Lee$*$, Zhao Tang Luo, Huiyan Sang, and
+Hyunwoong Chang\*, Changwoo J. Lee\*, Zhao Tang Luo, Huiyan Sang, and
 Quan Zhou,  
 accepted at [NeurIPS 2022](https://nips.cc/Conferences/2022),
 *oral-designated*.
@@ -41,18 +41,20 @@ In this demo, we show an illustrative example with Bayesian variable
 selection (BVS) problems described in Section 4.1. of the paper.
 Consider a high-dimensional linear model with response
 $y\in\mathbb{R}^p$ and design matrix $X\in\mathbb{R}^{n\times p}$, where
-the number of predictors is much larger than the sample size $n$. $$
+the number of predictors is much larger than the sample size $n$.
+
+$$
 y  = X\beta + \epsilon, \quad \epsilon\sim N(0, \phi^{-1}I_n)
 $$
 
 Under the sparse statistical model [(Hastie, Tibshirani, and Wainwright,
 2015)](#references) where $\beta\in\mathbb{R}^p$ has only few nonzero
 components, BVS seeks to find the best subset of predictors denoted as a
-binary vector $\gamma\in\{0,1\}^p$ where $\gamma_j=1$ indicates j-th
-predictor is included in the model (i.e. $\beta_j\neq 0$). The main
-interest is the posterior distribution $\pi(\gamma\,|\,y)$, and we
-sample from $\pi(\gamma\,|\,y)$ using Markov chain Monte Carlo (MCMC)
-methods, such as multiple-try Metropolis (MTM) algorithm.
+binary vector $`\gamma\in\{0,1\}^p`$ where $\gamma_j=1$ indicates j-th
+predictor is included in the model. The main interest is the posterior
+distribution $\pi(\gamma|y)$, and we sample from $\pi(\gamma|y)$ using
+Markov chain Monte Carlo (MCMC) methods, such as multiple-try Metropolis
+(MTM) algorithm.
 
 In this brief demo, we investigate the behavior of MTM, focusing on
 implications of the main theorem in our paper:
@@ -120,9 +122,9 @@ weight functions:
 -   $w_{\mathrm{ord}}(y|x) = \pi(y)$ (ordinary, not locally balanced)
 -   $w_{\mathrm{sqrt}}(y|x) = \sqrt{\pi(y)/\pi(x)}$ (sqrt, locally
     balanced)
--   $w_{\mathrm{min}}(y|x) = \min\{\pi(y)/\pi(x),1\}$ (min, locally
+-   $w_{\mathrm{min}}(y|x) = \min(\pi(y)/\pi(x),1)$ (min, locally
     balanced)
--   $w_{\mathrm{max}}(y|x) = \max\{\pi(y)/\pi(x),1\}$ (max, locally
+-   $w_{\mathrm{max}}(y|x) = \max(\pi(y)/\pi(x),1)$ (max, locally
     balanced)
 
 ``` r
@@ -134,28 +136,28 @@ fit_ord_20 = bvs_mtm(y, X, ntry =  20, balancingft = NULL, burn = 0, nmc = 2000,
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.8899908 secs
+#> Elapsed time for 2000 MCMC iteration:  0.893409 secs
 
 fit_sqrt_20 = bvs_mtm(y, X, ntry =  20, balancingft = "sqrt", burn = 0, nmc = 2000,
                       preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 9 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.744462 secs
+#> Elapsed time for 2000 MCMC iteration:  0.634944 secs
 
 fit_min_20 = bvs_mtm(y, X, ntry =  20, balancingft = "min", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 11 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.8577099 secs
+#> Elapsed time for 2000 MCMC iteration:  0.7078671 secs
 
 fit_max_20 = bvs_mtm(y, X, ntry =  20, balancingft = "max", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 9 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.8690429 secs
+#> Elapsed time for 2000 MCMC iteration:  0.679898 secs
 
 # ntry = 200
 fit_ord_200 = bvs_mtm(y, X, ntry =  200, balancingft = NULL, burn = 0, nmc = 2000,
@@ -164,54 +166,47 @@ fit_ord_200 = bvs_mtm(y, X, ntry =  200, balancingft = NULL, burn = 0, nmc = 200
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.557371 secs
+#> Elapsed time for 2000 MCMC iteration:  1.349529 secs
 
 fit_sqrt_200 = bvs_mtm(y, X, ntry =  200, balancingft = "sqrt", burn = 0, nmc = 2000,
                       preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.361095 secs
+#> Elapsed time for 2000 MCMC iteration:  1.25786 secs
 
 fit_min_200 = bvs_mtm(y, X, ntry =  200, balancingft = "min", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.810369 secs
+#> Elapsed time for 2000 MCMC iteration:  1.326942 secs
 
 fit_max_200 = bvs_mtm(y, X, ntry =  200, balancingft = "max", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.96091 secs
+#> Elapsed time for 2000 MCMC iteration:  1.366856 secs
 
 # plot 
-
 plot(fit_ord_20$logpostout, col = 1, type="l", main = "Trace plot of log posterior (up to constant)")
 lines(fit_sqrt_20$logpostout, col = 2)
 lines(fit_min_20$logpostout, col = 3)
 lines(fit_max_20$logpostout, col = 7)
-
 lines(fit_ord_200$logpostout, col = 1, lty = 2)
 lines(fit_sqrt_200$logpostout, col = 2, lty = 2)
 lines(fit_min_200$logpostout, col = 3, lty = 2)
 lines(fit_max_200$logpostout, col = 7, lty = 2)
-
 abline(h = logposttrue, col = 4, lty = 2, lwd =3)
-
-legend("bottomright",
-       lty = c(1,1,1,1,2,2,2,2,2),
-       col = c(1,2,3,7,1,2,3,7,4),
-       lwd = c(1,1,1,1,1,1,1,1,3),
+legend("bottomright",lty = c(1,1,1,1,2,2,2,2,2),
+       col = c(1,2,3,7,1,2,3,7,4),lwd = c(1,1,1,1,1,1,1,1,3),
        legend = c("ord, N=20","sqrt, N=20","min, N=20","max, N=20",
                   "ord, N=200","sqrt, N=200","min, N=200","max, N=200",
-                  "true model")
-       )
+                  "true model"))
 ```
 
-<img src="man/figures/README-example1:fit1-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 We can check that MTM with $N=200$ converges to the true model roughly
 10 times faster than MTM with $N=20$. Note that the elapsed wall-clock
@@ -229,44 +224,37 @@ fit_ord_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = NULL, burn = 0, nmc = 1
 #> [1] "balancingft is not provided, using ordinary weight function w(y|x) = p(y)"
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  5.542353 secs
+#> Elapsed time for 1000 MCMC iteration:  3.904636 secs
 
 fit_sqrt_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = "sqrt", burn = 0, nmc = 1000,
                       preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  5.198397 secs
+#> Elapsed time for 1000 MCMC iteration:  3.254738 secs
 
 fit_min_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = "min", burn = 0, nmc = 1000,
                         preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  4.044386 secs
+#> Elapsed time for 1000 MCMC iteration:  3.097136 secs
 
 fit_max_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = "max", burn = 0, nmc = 1000,
                         preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  3.427457 secs
-
+#> Elapsed time for 1000 MCMC iteration:  2.882234 secs
 
 plot(fit_sqrt_2000$logpostout, type = "l", col = 2, main = "Trace plot of log posterior (up to constant)")
 lines(fit_ord_2000$logpostout, col = 1)
 lines(fit_min_2000$logpostout, col = 3)
 lines(fit_max_2000$logpostout, col = 7)
-
 abline(h = logposttrue, col = 4, lty = 2, lwd =3)
-
-legend("right",
-       lty = c(1,1,1,1,2),
-       col = c(1,2,3,7,4),
-       lwd = c(1,1,1,1,3),
+legend("right", lty = c(1,1,1,1,2), col = c(1,2,3,7,4),lwd = c(1,1,1,1,3),
        legend = c("ord, N=2000","sqrt, N=2000","min, N=2000","max, N=2000",
-                  "true model")
-)
+                  "true model"))
 ```
 
-<img src="man/figures/README-example1:fit2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 We can clearly see that MTM with $w_{\mathrm{ord}}$ stuck at local mode
 whereas others does not, which shows necessity of using locally balanced
@@ -277,11 +265,15 @@ described in our main theorem.
 
 ### References
 
-Liu, J. S., Liang, F., & Wong, W. H. (2000). The multiple-try method and
-local optimization in Metropolis sampling. Journal of the American
-Statistical Association, 95(449), 121-134.
-
 Chang, H., Lee, C. J., Luo, Z. T., Sang, H., & Zhou, Q. (2022). Rapidly
 Mixing Multiple-try Metropolis Algorithms for Model Selection Problems.
 Advances in Neural Information Processing Systems 35 (NeurIPS),
 just-accepted.
+
+Hastie, T., Tibshirani, R., & Wainwright, M. (2015). Statistical
+learning with sparsity. Monographs on statistics and applied
+probability, 143, 143.
+
+Liu, J. S., Liang, F., & Wong, W. H. (2000). The multiple-try method and
+local optimization in Metropolis sampling. Journal of the American
+Statistical Association, 95(449), 121-134.
