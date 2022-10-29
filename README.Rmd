@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 This repository contains implementations of the paper 
 
 [Rapidly Mixing Multiple-try Metropolis Algorithms for Model Selection Problems](https://arxiv.org/abs/2207.00689)\
-Hyunwoong Chang$^*$, Changwoo J. Lee$^*$, Zhao Tang Luo, Huiyan Sang, and Quan Zhou,\
+Hyunwoong Chang$*$, Changwoo J. Lee$*$, Zhao Tang Luo, Huiyan Sang, and Quan Zhou,\
 accepted at [NeurIPS 2022](https://nips.cc/Conferences/2022), *oral-designated*.
 
 We study multiple-try Metropolis (MTM) algorithm [(Liu, Liang, and Wong, 2000)](#references), which is an extension of the Metropolis-Hastings (MH) algorithm by selecting the proposed state among multiple trials according to some weight function $w(y|x)$. Below cartoon depicts how MTM algorithms choose the proposed state $y=y_2$ among $N=3$ trials $y_1,y_2,y_3$ from the current state $x_t$.
@@ -38,10 +38,11 @@ We prove that MTM algorithm with *locally balanced weight functions* can achieve
 
 In this demo, we show an illustrative example with Bayesian variable selection (BVS) problems described in Section 4.1. of the paper.
 Consider a high-dimensional linear model with response $y\in\mathbb{R}^p$ and design matrix $X\in\mathbb{R}^{n\times p}$, where the number of predictors is much larger than the sample size $n$. 
-\[
+$$
 y  = X\beta + \epsilon, \quad \epsilon\sim N(0, \phi^{-1}I_n)
-\]
-Under the sparse statistical model [(Hastie, Tibshirani, and Wainwright, 2015)](#references) where $\beta\in\mathbb{R}^p$ has only few nonzero components, BVS seeks to find the best subset of predictors denoted as a binary vector $\gamma\in\{0,1\}^p$ where $\gamma_j=1$ indicates $j$th predictor is included in the model (i.e. $\beta_j\neq0$). The main interest is the posterior distribution $\pi(\gamma\,|\,y)$, and we sample from $\pi(\gamma\,|\,y)$ using Markov chain Monte Carlo (MCMC) methods, such as multiple-try Metropolis (MTM) algorithm.
+$$
+
+Under the sparse statistical model [(Hastie, Tibshirani, and Wainwright, 2015)](#references) where $\beta\in\mathbb{R}^p$ has only few nonzero components, BVS seeks to find the best subset of predictors denoted as a binary vector $\gamma\in\{0,1\}^p$ where $\gamma_j=1$ indicates j-th predictor is included in the model (i.e. $\beta_j\neq 0$). The main interest is the posterior distribution $\pi(\gamma\,|\,y)$, and we sample from $\pi(\gamma\,|\,y)$ using Markov chain Monte Carlo (MCMC) methods, such as multiple-try Metropolis (MTM) algorithm.
 
 In this brief demo, we investigate the behavior of MTM, focusing on implications of the main theorem in our paper: 
 
