@@ -1,4 +1,7 @@
+.gitignore
+.Rbuildignore
 .Rproj.user
+.Rproj
 .Rhistory
 .Rdata
 .httr-oauth

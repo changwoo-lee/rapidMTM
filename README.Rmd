@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "70%"
 )
 ```
 <!-- badges: start -->
@@ -30,6 +30,7 @@ We study multiple-try Metropolis (MTM) algorithm [(Liu, Liang, and Wong, 2000)](
 
 We prove that MTM algorithm with *locally balanced weight functions* can achieve a mixing time bound smaller than that of Metropolis-Hastings (MH) algorithm **by a factor of the number of trials** $N$, under a general setting applicable to high-dimensional model selection problems such as Bayesian variable selection, stochastic block models, and spatial clustering models.
 
+Please see folder `R` for the R software codes used in the simulation studies.
 <!--
 ![Bayesian variable selection example](fig/fig3.PNG)
 -->
@@ -43,9 +44,9 @@ $$
 y  = X\beta + \epsilon, \quad \epsilon\sim N(0, \phi^{-1}I_n)
 $$
 
-Under the sparse statistical model [(Hastie, Tibshirani, and Wainwright, 2015)](#references) where $\beta\in\mathbb{R}^p$ has only few nonzero components, BVS seeks to find the best subset of predictors denoted as a binary vector $`\gamma\in\{0,1\}^p`$ where $\gamma_j=1$ indicates j-th predictor is included in the model. The main interest is the posterior distribution $\pi(\gamma|y)$, and we sample from $\pi(\gamma|y)$ using Markov chain Monte Carlo (MCMC) methods, such as multiple-try Metropolis (MTM) algorithm.
+Under the sparse statistical model [(Hastie, Tibshirani, and Wainwright, 2015)](#references) where $\beta\in\mathbb{R}^p$ has only few nonzero components, BVS seeks to find the best subset of predictors denoted as $p$ -dimensional binary vector $\gamma$ where $\gamma_j=1$ indicates j-th predictor is included in the model. The main interest is the posterior distribution $\pi(\gamma|y)$, and we sample from $\pi(\gamma|y)$ using Markov chain Monte Carlo (MCMC) methods, such as multiple-try Metropolis (MTM) algorithm.
 
-In this brief demo, we investigate the behavior of MTM, focusing on implications of the main theorem in our paper: 
+In this brief demo, we investigate the behavior of MTM focusing on implications of the main theorem in our paper: 
 
 * As $N$ increases, mixing time of MTM algorithm becomes smaller by a factor of $N$.
 * Using the nondecreasing locally balanced weight function is necessary to establish such result.
@@ -106,7 +107,7 @@ We run the MTM algorithms with $N=20,200$ and four different choices of weight f
 * $w_{\mathrm{max}}(y|x) = \max(\pi(y)/\pi(x),1)$ (max, locally balanced)
 
 ```{r}
-source("R/bvs_mtm.R")
+source("R/bvs_mtm.R") # MTM algorithm for BVS
 # ntry = 20  
 fit_ord_20 = bvs_mtm(y, X, ntry =  20, balancingft = NULL, burn = 0, nmc = 2000,
                        preprocessed = preprocessed, gammainit = gammainit)
@@ -150,9 +151,9 @@ legend("bottomright",lty = c(1,1,1,1,2,2,2,2,2),
                   "true model"))
 ```
 
-We can check that MTM with $N=200$ converges to the true model roughly 10 times faster than MTM with $N=20$. Note that the elapsed wall-clock time for MCMC iteration is only about 2 times increased (not 10 times), thanks to the vectorized computation for $N$ weight functions. 
+We can check that MTM with $N=200$ converges to the true model roughly 10 times faster than MTM with $N=20$. Note that the elapsed wall-clock time for MCMC iteration is only about 2 times increased for $N=200$ compared to $N=20$ (not 10 times), thanks to the vectorized computation for $N$ weight functions. 
 
-When $N$ is relatively small, $w_{\mathrm{ord}}$ shows no difference from locally balanced weight functions. Let's see when $N$ becomes large, such as $N=2000$:
+In above example when $N$ is relatively small, $w_{\mathrm{ord}}$ shows no difference from locally balanced weight functions. Let's see the behavior of MTM when $N$ becomes large such as $N=2000$:
 
 ```{r}
 ### ntry = 2000
@@ -178,8 +179,7 @@ legend("right", lty = c(1,1,1,1,2), col = c(1,2,3,7,4),lwd = c(1,1,1,1,3),
                   "true model"))
 ```
 
-We can clearly see that MTM with $w_{\mathrm{ord}}$ stuck at local mode whereas others does not, which shows necessity of using locally balanced weight functions to achieve a mixing time bound improvement by a factor of $N$. We note that even under the locally balanced weight functions, such $N$ times improvement is subject to the rate condition on $N$ described in our main theorem.
-
+We can clearly see that MTM with $w_{\mathrm{ord}}$ stuck at local mode whereas others does not, which shows necessity of using locally balanced weight functions to achieve the mixing time bound improvement by a factor of $N$. We note that even with locally balanced weight functions, such improvement is subject to the rate condition on $N$ described in our main theorem.
 
 
 

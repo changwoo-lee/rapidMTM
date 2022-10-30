@@ -31,7 +31,8 @@ general setting applicable to high-dimensional model selection problems
 such as Bayesian variable selection, stochastic block models, and
 spatial clustering models.
 
-<!--
+Please see folder `R` for the R software codes used in the simulation
+studies. <!--
 ![Bayesian variable selection example](fig/fig3.PNG)
 -->
 
@@ -49,14 +50,14 @@ $$
 
 Under the sparse statistical model [(Hastie, Tibshirani, and Wainwright,
 2015)](#references) where $\beta\in\mathbb{R}^p$ has only few nonzero
-components, BVS seeks to find the best subset of predictors denoted as a
-binary vector $`\gamma\in\{0,1\}^p`$ where $\gamma_j=1$ indicates j-th
-predictor is included in the model. The main interest is the posterior
-distribution $\pi(\gamma|y)$, and we sample from $\pi(\gamma|y)$ using
-Markov chain Monte Carlo (MCMC) methods, such as multiple-try Metropolis
-(MTM) algorithm.
+components, BVS seeks to find the best subset of predictors denoted as
+$p$ -dimensional binary vector $\gamma$ where $\gamma_j=1$ indicates
+j-th predictor is included in the model. The main interest is the
+posterior distribution $\pi(\gamma|y)$, and we sample from
+$\pi(\gamma|y)$ using Markov chain Monte Carlo (MCMC) methods, such as
+multiple-try Metropolis (MTM) algorithm.
 
-In this brief demo, we investigate the behavior of MTM, focusing on
+In this brief demo, we investigate the behavior of MTM focusing on
 implications of the main theorem in our paper:
 
 -   As $N$ increases, mixing time of MTM algorithm becomes smaller by a
@@ -128,7 +129,7 @@ weight functions:
     balanced)
 
 ``` r
-source("R/bvs_mtm.R")
+source("R/bvs_mtm.R") # MTM algorithm for BVS
 # ntry = 20  
 fit_ord_20 = bvs_mtm(y, X, ntry =  20, balancingft = NULL, burn = 0, nmc = 2000,
                        preprocessed = preprocessed, gammainit = gammainit)
@@ -136,28 +137,28 @@ fit_ord_20 = bvs_mtm(y, X, ntry =  20, balancingft = NULL, burn = 0, nmc = 2000,
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.893409 secs
+#> Elapsed time for 2000 MCMC iteration:  0.8540342 secs
 
 fit_sqrt_20 = bvs_mtm(y, X, ntry =  20, balancingft = "sqrt", burn = 0, nmc = 2000,
                       preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 9 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.634944 secs
+#> Elapsed time for 2000 MCMC iteration:  0.6038671 secs
 
 fit_min_20 = bvs_mtm(y, X, ntry =  20, balancingft = "min", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 11 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.7078671 secs
+#> Elapsed time for 2000 MCMC iteration:  0.7137129 secs
 
 fit_max_20 = bvs_mtm(y, X, ntry =  20, balancingft = "max", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 9 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.679898 secs
+#> Elapsed time for 2000 MCMC iteration:  0.669282 secs
 
 # ntry = 200
 fit_ord_200 = bvs_mtm(y, X, ntry =  200, balancingft = NULL, burn = 0, nmc = 2000,
@@ -166,28 +167,28 @@ fit_ord_200 = bvs_mtm(y, X, ntry =  200, balancingft = NULL, burn = 0, nmc = 200
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.349529 secs
+#> Elapsed time for 2000 MCMC iteration:  1.449366 secs
 
 fit_sqrt_200 = bvs_mtm(y, X, ntry =  200, balancingft = "sqrt", burn = 0, nmc = 2000,
                       preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.25786 secs
+#> Elapsed time for 2000 MCMC iteration:  1.267368 secs
 
 fit_min_200 = bvs_mtm(y, X, ntry =  200, balancingft = "min", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.326942 secs
+#> Elapsed time for 2000 MCMC iteration:  1.290061 secs
 
 fit_max_200 = bvs_mtm(y, X, ntry =  200, balancingft = "max", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.366856 secs
+#> Elapsed time for 2000 MCMC iteration:  1.235427 secs
 
 # plot 
 plot(fit_ord_20$logpostout, col = 1, type="l", main = "Trace plot of log posterior (up to constant)")
@@ -206,16 +207,17 @@ legend("bottomright",lty = c(1,1,1,1,2,2,2,2,2),
                   "true model"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
 
 We can check that MTM with $N=200$ converges to the true model roughly
 10 times faster than MTM with $N=20$. Note that the elapsed wall-clock
-time for MCMC iteration is only about 2 times increased (not 10 times),
-thanks to the vectorized computation for $N$ weight functions.
+time for MCMC iteration is only about 2 times increased for $N=200$
+compared to $N=20$ (not 10 times), thanks to the vectorized computation
+for $N$ weight functions.
 
-When $N$ is relatively small, $w_{\mathrm{ord}}$ shows no difference
-from locally balanced weight functions. Let’s see when $N$ becomes
-large, such as $N=2000$:
+In above example when $N$ is relatively small, $w_{\mathrm{ord}}$ shows
+no difference from locally balanced weight functions. Let’s see the
+behavior of MTM when $N$ becomes large such as $N=2000$:
 
 ``` r
 ### ntry = 2000
@@ -224,25 +226,25 @@ fit_ord_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = NULL, burn = 0, nmc = 1
 #> [1] "balancingft is not provided, using ordinary weight function w(y|x) = p(y)"
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  3.904636 secs
+#> Elapsed time for 1000 MCMC iteration:  4.121873 secs
 
 fit_sqrt_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = "sqrt", burn = 0, nmc = 1000,
                       preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  3.254738 secs
+#> Elapsed time for 1000 MCMC iteration:  3.33851 secs
 
 fit_min_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = "min", burn = 0, nmc = 1000,
                         preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  3.097136 secs
+#> Elapsed time for 1000 MCMC iteration:  3.134462 secs
 
 fit_max_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = "max", burn = 0, nmc = 1000,
                         preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  2.882234 secs
+#> Elapsed time for 1000 MCMC iteration:  2.861666 secs
 
 plot(fit_sqrt_2000$logpostout, type = "l", col = 2, main = "Trace plot of log posterior (up to constant)")
 lines(fit_ord_2000$logpostout, col = 1)
@@ -254,14 +256,14 @@ legend("right", lty = c(1,1,1,1,2), col = c(1,2,3,7,4),lwd = c(1,1,1,1,3),
                   "true model"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="70%" />
 
 We can clearly see that MTM with $w_{\mathrm{ord}}$ stuck at local mode
 whereas others does not, which shows necessity of using locally balanced
-weight functions to achieve a mixing time bound improvement by a factor
-of $N$. We note that even under the locally balanced weight functions,
-such $N$ times improvement is subject to the rate condition on $N$
-described in our main theorem.
+weight functions to achieve the mixing time bound improvement by a
+factor of $N$. We note that even with locally balanced weight functions,
+such improvement is subject to the rate condition on $N$ described in
+our main theorem.
 
 ### References
 
