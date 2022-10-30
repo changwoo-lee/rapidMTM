@@ -1,27 +1,29 @@
+require(matrixStats)
+require(mgcv)
+
 #' BVS with multiple-try metropolis with sqrt(u) weight function
 #' Bayesian variable selection model based on Yang, Wainwright and Jordan (2016), On the computational complexity of high-dimensional Bayesian variable selection ,Annals of Statistics.
 #'
 #' @param y n by 1, response vector.
 #' @param X n by p, design matrix.
+#' @param ntry integer greater than 2, the number of multiple-trials
+#' @param balancingft Balancing function, one of "sqrt","min","max". if omitted, using weight function w(y|x) = p(y) 
+#' @param preprocessed list of XtX, Xty and yty 
+#' @param burn integer (default 1000), burn-in iteration
+#' @param nmc integer (default 5000), number of mcmc iteration after burn in
+#' @param thin integer (default 1), thin-in
+#' @param gammainit length p binary vector, initial state gamma_0. If omitted, initialize with random 
+#' @param truegamma length p binary vector (optional), true model to measure the hitting iteration/wall-clock time 
+#' @param verbose integer,  period for printing mcmc status
 #' @param g positive real, hyperparameter 
 #' @param kappa positive real, hyperparameter
-#' @param smax positive integer, hyperparameter (s_max in the manuscript)
-#' @param burn integer, burn-in period
-#' @param nmc integer, number of mcmc iteration after burn in
-#' @param thin integer, thin-in
-#' @param gammainit initial state gamma_0
-#' @param verbose printing option
-#' @param debug debugging option
-#' @param preprocessed list of XtX, Xty and yty 
-#' @param ntry the number of multiple-trials
-#' @param truegamma (to measure the hit H) highest posterior prob. state
+#' @param smax positive integer, hyperparameter
 #'
 #' @return list of:
 #' pip = posterior inclusion prob.,
 #' gammaout = list of the states (selected variables),
 #' accratio = acceptance ratio,
-#' logpostout = log-posterior,
-#' Rsqout = R-squared, 
+#' logpostout = log-posterior
 #' mcmctime = time took during mcmc,
 #' hit_time = hit_time(T_H),
 #' hit_iter = hit_iter(H).
@@ -140,8 +142,8 @@ bvs_mtm <- function(y, X, ntry, balancingft = NULL,
     #imcmc = imcmc + 1 
     acc = 0
     
-    # if s < smax,
-    
+    # if s < smax, in principle, we do double flip with prob. 1/2 but this never happens in our simulation studies (TODO)  
+    if(s == smax) warning("reached smax, did you specify too small smax or too small kappa?")
     # Step 1. ntry independent single flip proposals
     # sample the indicies that will change, not length p vector
     idx_K = sample.int(p, size = ntry, replace = T) # this is scalable (not sensitive with p)
@@ -372,10 +374,6 @@ bvs_mtm <- function(y, X, ntry, balancingft = NULL,
 }
 
 
-
-
-library(mgcv)
-library(Matrix)
 
 cholDel2 <- function(R, j){
   n = nrow(R)
