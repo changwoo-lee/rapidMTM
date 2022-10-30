@@ -30,7 +30,7 @@ We study multiple-try Metropolis (MTM) algorithm [(Liu, Liang, and Wong, 2000)](
 
 We prove that MTM algorithm with *locally balanced weight functions* can achieve a mixing time bound smaller than that of Metropolis-Hastings (MH) algorithm **by a factor of the number of trials** $N$, under a general setting applicable to high-dimensional model selection problems such as Bayesian variable selection, stochastic block models, and spatial clustering models.
 
-Please see folder `R` for the R software codes used in the simulation studies.
+Please see the folder `R` for the R software codes used in the simulation studies.
 <!--
 ![Bayesian variable selection example](fig/fig3.PNG)
 -->
@@ -106,7 +106,7 @@ We run the MTM algorithms with $N=20,200$ and four different choices of weight f
 * $w_{\mathrm{min}}(y|x) = \min(\pi(y)/\pi(x),1)$ (min, locally balanced)
 * $w_{\mathrm{max}}(y|x) = \max(\pi(y)/\pi(x),1)$ (max, locally balanced)
 
-```{r}
+```{r, fig.align="center"}
 source("R/bvs_mtm.R") # MTM algorithm for BVS
 # ntry = 20  
 fit_ord_20 = bvs_mtm(y, X, ntry =  20, balancingft = NULL, burn = 0, nmc = 2000,
@@ -135,7 +135,7 @@ fit_max_200 = bvs_mtm(y, X, ntry =  200, balancingft = "max", burn = 0, nmc = 20
                      preprocessed = preprocessed, gammainit = gammainit)
 
 # plot 
-plot(fit_ord_20$logpostout, col = 1, type="l", main = "Trace plot of log posterior (up to constant)")
+plot(fit_ord_20$logpostout, type="l", main = "Trace plot of log posterior", xlab = "iteration", ylab="log posterior (up to a constant)")
 lines(fit_sqrt_20$logpostout, col = 2)
 lines(fit_min_20$logpostout, col = 3)
 lines(fit_max_20$logpostout, col = 7)
@@ -155,7 +155,7 @@ We can check that MTM with $N=200$ converges to the true model roughly 10 times 
 
 In above example when $N$ is relatively small, $w_{\mathrm{ord}}$ shows no difference from locally balanced weight functions. Let's see the behavior of MTM when $N$ becomes large such as $N=2000$:
 
-```{r}
+```{r, fig.align="center"}
 ### ntry = 2000
 fit_ord_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = NULL, burn = 0, nmc = 1000,
                      preprocessed = preprocessed, gammainit = gammainit)
@@ -169,7 +169,7 @@ fit_min_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = "min", burn = 0, nmc = 
 fit_max_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = "max", burn = 0, nmc = 1000,
                         preprocessed = preprocessed, gammainit = gammainit)
 
-plot(fit_sqrt_2000$logpostout, type = "l", col = 2, main = "Trace plot of log posterior (up to constant)")
+plot(fit_sqrt_2000$logpostout, type = "l", main = "Trace plot of log posterior", xlab = "iteration", ylab="log posterior (up to a constant)")
 lines(fit_ord_2000$logpostout, col = 1)
 lines(fit_min_2000$logpostout, col = 3)
 lines(fit_max_2000$logpostout, col = 7)

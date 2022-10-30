@@ -31,8 +31,8 @@ general setting applicable to high-dimensional model selection problems
 such as Bayesian variable selection, stochastic block models, and
 spatial clustering models.
 
-Please see folder `R` for the R software codes used in the simulation
-studies. <!--
+Please see the folder `R` for the R software codes used in the
+simulation studies. <!--
 ![Bayesian variable selection example](fig/fig3.PNG)
 -->
 
@@ -137,28 +137,28 @@ fit_ord_20 = bvs_mtm(y, X, ntry =  20, balancingft = NULL, burn = 0, nmc = 2000,
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.8540342 secs
+#> Elapsed time for 2000 MCMC iteration:  0.8634419 secs
 
 fit_sqrt_20 = bvs_mtm(y, X, ntry =  20, balancingft = "sqrt", burn = 0, nmc = 2000,
                       preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 9 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.6038671 secs
+#> Elapsed time for 2000 MCMC iteration:  0.64868 secs
 
 fit_min_20 = bvs_mtm(y, X, ntry =  20, balancingft = "min", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 11 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.7137129 secs
+#> Elapsed time for 2000 MCMC iteration:  0.710078 secs
 
 fit_max_20 = bvs_mtm(y, X, ntry =  20, balancingft = "max", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 9 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  0.669282 secs
+#> Elapsed time for 2000 MCMC iteration:  0.690932 secs
 
 # ntry = 200
 fit_ord_200 = bvs_mtm(y, X, ntry =  200, balancingft = NULL, burn = 0, nmc = 2000,
@@ -167,31 +167,31 @@ fit_ord_200 = bvs_mtm(y, X, ntry =  200, balancingft = NULL, burn = 0, nmc = 200
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.449366 secs
+#> Elapsed time for 2000 MCMC iteration:  1.384647 secs
 
 fit_sqrt_200 = bvs_mtm(y, X, ntry =  200, balancingft = "sqrt", burn = 0, nmc = 2000,
                       preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.267368 secs
+#> Elapsed time for 2000 MCMC iteration:  1.293503 secs
 
 fit_min_200 = bvs_mtm(y, X, ntry =  200, balancingft = "min", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.290061 secs
+#> Elapsed time for 2000 MCMC iteration:  1.309706 secs
 
 fit_max_200 = bvs_mtm(y, X, ntry =  200, balancingft = "max", burn = 0, nmc = 2000,
                      preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
 #> iteration 2000 model size: 10 
-#> Elapsed time for 2000 MCMC iteration:  1.235427 secs
+#> Elapsed time for 2000 MCMC iteration:  1.344248 secs
 
 # plot 
-plot(fit_ord_20$logpostout, col = 1, type="l", main = "Trace plot of log posterior (up to constant)")
+plot(fit_ord_20$logpostout, type="l", main = "Trace plot of log posterior", xlab = "iteration", ylab="log posterior (up to a constant)")
 lines(fit_sqrt_20$logpostout, col = 2)
 lines(fit_min_20$logpostout, col = 3)
 lines(fit_max_20$logpostout, col = 7)
@@ -207,7 +207,7 @@ legend("bottomright",lty = c(1,1,1,1,2,2,2,2,2),
                   "true model"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
 
 We can check that MTM with $N=200$ converges to the true model roughly
 10 times faster than MTM with $N=20$. Note that the elapsed wall-clock
@@ -226,27 +226,27 @@ fit_ord_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = NULL, burn = 0, nmc = 1
 #> [1] "balancingft is not provided, using ordinary weight function w(y|x) = p(y)"
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  4.121873 secs
+#> Elapsed time for 1000 MCMC iteration:  4.016815 secs
 
 fit_sqrt_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = "sqrt", burn = 0, nmc = 1000,
                       preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  3.33851 secs
+#> Elapsed time for 1000 MCMC iteration:  3.224952 secs
 
 fit_min_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = "min", burn = 0, nmc = 1000,
                         preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  3.134462 secs
+#> Elapsed time for 1000 MCMC iteration:  3.184143 secs
 
 fit_max_2000 = bvs_mtm(y, X, ntry =  2000, balancingft = "max", burn = 0, nmc = 1000,
                         preprocessed = preprocessed, gammainit = gammainit)
 #> Run MCMC, initial model size: 10 
 #> iteration 1000 model size: 10 
-#> Elapsed time for 1000 MCMC iteration:  2.861666 secs
+#> Elapsed time for 1000 MCMC iteration:  2.977435 secs
 
-plot(fit_sqrt_2000$logpostout, type = "l", col = 2, main = "Trace plot of log posterior (up to constant)")
+plot(fit_sqrt_2000$logpostout, type = "l", main = "Trace plot of log posterior", xlab = "iteration", ylab="log posterior (up to a constant)")
 lines(fit_ord_2000$logpostout, col = 1)
 lines(fit_min_2000$logpostout, col = 3)
 lines(fit_max_2000$logpostout, col = 7)
@@ -256,7 +256,7 @@ legend("right", lty = c(1,1,1,1,2), col = c(1,2,3,7,4),lwd = c(1,1,1,1,3),
                   "true model"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
 
 We can clearly see that MTM with $w_{\mathrm{ord}}$ stuck at local mode
 whereas others does not, which shows necessity of using locally balanced
